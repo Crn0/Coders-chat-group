@@ -1,15 +1,15 @@
-import 'dotenv/config';
+import "dotenv/config";
 import express from "express";
-import mongoose from 'mongoose';
-import passport from 'passport';
-import __dirname from '../dirname.mjs';
+import mongoose from "mongoose";
+import passport from "passport";
+import __dirname from "../dirname.mjs";
 import createError from "http-errors";
 import { join } from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import * as PassportConfig from './configs/passport.mjs';
-import SessionConfig from './configs/session.mjs';
-import mainRouter from './routes/main.mjs';
+import * as PassportConfig from "./configs/passport.mjs";
+import SessionConfig from "./configs/session.mjs";
+import mainRouter from "./routes/main.mjs";
 
 const app = express();
 
@@ -41,7 +41,7 @@ app.use((req, res, next) => {
   res.locals.currentUser = req?.user;
   res.locals.isMember = req.user?.member;
   res.locals.isAdmin = req.user?.admin;
-  next()
+  next();
 });
 
 app.use("/", mainRouter);
