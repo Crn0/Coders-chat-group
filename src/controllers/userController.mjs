@@ -1,4 +1,8 @@
+import passport from "passport";
 import asyncHandler from "express-async-handler";
+import bcrypt from "bcryptjs";
+import User from '../models/user.mjs';
+
 
 // GET
 const index = asyncHandler(async (req, res, _) => {
