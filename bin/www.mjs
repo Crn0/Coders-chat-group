@@ -12,7 +12,7 @@ import http from 'http';
 import debugFunc from 'debug';
 import app from '../src/app.mjs';
 
-const debug = debugFunc('express-mongoose-template:server');
+const debug = debugFunc('tarot-club:server');
 /**
  * Get port from environment and store in Express.
  */
