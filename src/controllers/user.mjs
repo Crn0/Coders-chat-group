@@ -25,6 +25,10 @@ const login_get = asyncHandler(async (req, res, _) => {
   res.send("Login page: GET NOT IMPLEMENTED");
 });
 
+const logout_get = asyncHandler(async (req, res, _) => {
+  res.send("Logout page: GET NOT IMPLEMENTED");
+});
+
 const delete_get = asyncHandler(async (req, res, _) => {
   res.send("Delete page: GET NOT IMPLEMENTED");
 });
@@ -42,10 +46,6 @@ const delete_post = asyncHandler(async (req, res, _) => {
   res.send("Delete page: POST NOT IMPLEMENTED");
 });
 
-const logout_post = asyncHandler(async (req, res, _) => {
-  res.send("Logout page: POST NOT IMPLEMENTED");
-});
-
 export {
   index,
   home,
@@ -57,5 +57,5 @@ export {
   register_post,
   login_post,
   delete_post,
-  logout_post,
+  logout_get,
 };
