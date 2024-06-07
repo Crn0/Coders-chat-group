@@ -8,6 +8,7 @@ const userSchema = new Schema({
   member: { type: Boolean, default: false },
   admin: { type: Boolean, default: false },
   messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
+  secretMessages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
 });
 
 export default mongoose.model("User", userSchema);
