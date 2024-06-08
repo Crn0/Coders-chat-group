@@ -41,6 +41,8 @@ app.use((req, res, next) => {
   res.locals.currentUser = req?.user;
   res.locals.isMember = req.user?.member;
   res.locals.isAdmin = req.user?.admin;
+  res.locals.loginErrors = [...new Set(req.session?.messages)];
+  
   next();
 });
 
