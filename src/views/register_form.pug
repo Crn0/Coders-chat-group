@@ -1,0 +1,28 @@
+extends layout 
+block css 
+block content
+    h1 #{ title }
+
+    if errors
+        ul
+            each error in errors
+                li #{ error.msg }
+
+    form(method='POST')
+        fieldset.field-group
+            label
+                span.label Username (required):  
+                input(type='text' name='username' placeholder='Klein' required value=(uname ? uname : ''))
+            label
+                span.label Admin Password:
+                input(type='password' name='admin_password')
+            label
+                span.label Membership Password:
+                input(type='password' name='member_password')  
+            label
+                span.label Password (required): 
+                input(type='password' name='password' required)
+            label
+                span.label Confirm Password(required):
+                input(type='password' name='password_confirm' required)
+            button(type='submit') Submit 

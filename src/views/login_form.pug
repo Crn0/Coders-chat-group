@@ -1,0 +1,18 @@
+extends layout 
+block css 
+block content
+    h1 #{ title }
+
+    if loginErrors
+        each error in loginErrors
+            p #{ error }
+
+    form(method='POST')
+        fieldset.field-group
+            label
+                span.label Username (required):  
+                input(type='text' name='username' placeholder='Klein' required value=( uname ? uname : '' ))
+            label
+                span.label Password (required): 
+                input(type='password' name='password' required)
+            button(type='submit') Login
