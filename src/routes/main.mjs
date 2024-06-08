@@ -1,8 +1,6 @@
 import express from "express";
-import passport from "passport";
-import bcrypt from "bcryptjs";
-import * as UserController from "../controllers/user.mjs";
-import * as MessageController from "../controllers/message.mjs";
+import * as UserController from "../controllers/userController.mjs";
+import * as MessageController from "../controllers/messageController.mjs";
 
 const app = express.Router();
 
@@ -10,9 +8,9 @@ const app = express.Router();
 // GET
 app.get("/", UserController.index);
 
-app.get("/home", UserController.home);
+app.get("/minor_arcana", UserController.home);
 
-app.get("/secret_page", UserController.secret_page);
+app.get("/major_arcana", UserController.secret_page);
 
 app.get("/register", UserController.register_get);
 
