@@ -1,4 +1,4 @@
-const isAuth = ( isProtectedRoute ) => (req, res, next) => {
+const isAuthProtectedRoute = ( isProtectedRoute ) => (req, res, next) => {
     if(isProtectedRoute) {
         if(req.isAuthenticated()) return next();
 
@@ -11,11 +11,14 @@ const isAuth = ( isProtectedRoute ) => (req, res, next) => {
     return next();
 };
 
-const ifAuth = (cb) => (req, res, next) => {
+const ifAuth = (cb) => (...args) => {
+    const req = args[0];
+    const next = args[ args.length - 1 ];
+
     if(req.isAuthenticated()) {
         if(typeof cb === 'function') {
 
-            return cb();
+            return cb(...args);
         } else {
             const error = new Error('expected a callback')
 
@@ -37,7 +40,7 @@ const isMemberOrAdmin = (req, res, next) => {
 };
 
 export {
-    isAuth,
+    isAuthProtectedRoute,
     isMemberOrAdmin,
     ifAuth,
 };
