@@ -2,6 +2,27 @@ doctype html
 html
   head
     title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    block css
   body
-    block content
+    header
+      div
+        p #[strong Tarot Club]
+          a(href='/')
+        a(href='https://github.com/Crn0/Tarot-club' target='blank', rel='noopener noreferrer')
+          img(src='' alt='github logo')
+
+      nav
+        a(href='home') Home
+        if isAuthenticated
+          a(href=`/user/${currentUser.id}`) Profile
+          if isAdmin || isMember
+            a(href='secret_page') Tarot Club
+          a(href='/logout') Logout
+        else
+          a(href='/register') Register 
+          a(href='/login') Login
+    section
+      block content

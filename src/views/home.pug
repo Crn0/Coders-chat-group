@@ -1,0 +1,32 @@
+extends layout
+block css 
+block content 
+    h1 #{ title }
+    if isAuthenticated
+        p #[strong Welcome]: #{ currentUser.username }
+        a(href='/message/new') Post Message 
+    div
+        if users
+            - let messageExist = false
+            each user, index in users
+                if user.messages.length !== 0
+                   - messageExist = true                   
+                if messageExist
+                    each message in user.messages
+                        div 
+                            div
+                                p #{ message.title }
+                                if isAuthenticated
+                                    p from: #{ user.username }
+                                else
+                                    p from: unknown
+                            div
+                                p #{ message.message }
+                                p #{ message.date }
+                                if isAdmin
+                                    form(method='POST')
+                                        input(type='hidden' name='message_id' value=message._id)
+
+                                        button(type='submit') Delete
+                if messageExist === false && users.length - 1 === index
+                    p There is no post.

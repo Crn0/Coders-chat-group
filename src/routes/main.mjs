@@ -1,5 +1,4 @@
 import express from "express";
-import passport from "passport";
 import * as UserController from "../controllers/userController.mjs";
 import * as MessageController from "../controllers/messageController.mjs";
 
@@ -17,6 +16,8 @@ app.get("/register", UserController.register_get);
 
 app.get("/login", UserController.login_get);
 
+app.get("/logout", UserController.logout_get);
+
 app.get("/user/:id", UserController.profile);
 
 app.get("/user/:id/delete", UserController.delete_get);
@@ -25,8 +26,6 @@ app.get("/user/:id/delete", UserController.delete_get);
 app.post("/register", UserController.register_post);
 
 app.post("/login", UserController.login_post);
-
-app.post("/logout", UserController.logout_post);
 
 app.post("/user/:id/delete", UserController.delete_post);
 
