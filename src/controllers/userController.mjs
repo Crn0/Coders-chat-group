@@ -1,16 +1,19 @@
 import 'dotenv/config';
 import asyncHandler from "express-async-handler";
 import { body, validationResult } from 'express-validator';
+import { isValidObjectId } from 'mongoose'
 import passport from "passport";
 import bcrypt from "bcryptjs";
 import * as Authenticate from '../middlewares/authMiddleware.mjs';
 import User from '../models/user.mjs';
+import Message from '../models/message.mjs';
 import usernameExist from "../helpers/usernameExist.mjs";
 import isPasswordMatch from '../helpers/passwordMatch.mjs';
+import { memberRank, postCount } from '../helpers/profileHelpers.mjs'
 
 // GET
 const index = [
-  Authenticate.isAuth(false),
+  Authenticate.isAuthProtectedRoute(false),
   (req, res, _) => {
     if(req.isAuthenticated()) return res.redirect('/minor_arcana');
   
@@ -21,32 +24,91 @@ const index = [
 ];
 
 const home = asyncHandler(async (req, res, _) => {
-  res.send("<a href='/logout'>Logout<a/>");
+  const messages = await Message.find({}).populate('author').sort({ date: -1 }).exec();
+
+  res.render('home', {
+    messages,
+    title: 'Minor Arcana'
+  });
 });
 
-const secret_page = asyncHandler(async (req, res, _) => {
-  res.send("<a href='/logout'>Logout<a/>");
-});
+const secret_page = [
+  Authenticate.isAuthProtectedRoute(true),
+  Authenticate.isMemberOrAdmin,
+  
+  asyncHandler(async (req, res, _) => {
+    res.send("<a href='/logout'>Logout<a/>");
+  })
+];
 
-const profile = asyncHandler(async (req, res, _) => {
-  res.send("Profile page: GET NOT IMPLEMENTED");
-});
+const profile = [
+  Authenticate.isAuthProtectedRoute(true),
+  asyncHandler( async (req, res, _) => {
+    const { id } = req.params;
+    const posts = {};
+    
+    if(!isValidObjectId(id)) {
+      const error = new Error('ID is not a valid mongodb objectID');
+      error.status = 400;
+      return res.render('profile', {
+        error,
+        title: 'Profile'
+      })
+    }
+
+    const user = await User.findById(id, 'username member admin').exec();
+  
+    if(user === null) {
+      
+      const error = new Error('User not found');
+      error.status = 404
+      return res.render('profile', {
+        error,
+        title: 'Profile'
+      })
+    }
+
+    if(user.admin || user.member) {
+      const secretMessages = await Message.find({ author: id, secret: true }).exec();
+      
+      posts.secretMessages = secretMessages;
+    }
+
+    const messages = await Message.find({ author: id , secret: false}).sort({ date: - 1 }).exec()
+
+    posts.messages = messages;
+
+    const rank = memberRank(user);
+    const count = postCount(posts);
+
+    res.render('profile', {
+      user,
+      posts,
+      rank,
+      count,
+      title: 'Profile'
+    })
+  })
+];
 
 const register_get = [
   Authenticate.ifAuth((req, res, _) => res.redirect('/minor_arcana')),
-  (req, res, _) => {
+  asyncHandler( async (req, res, _) => {
 
     res.render('register_form', {
       title: 'Register'
     });
-  }
+  })
 ];
 
-const login_get = asyncHandler(async (req, res, _) => {
-  res.render('login_form', {
-    title: 'login'
-  });
-});
+const login_get = [
+  Authenticate.ifAuth((req, res, _) => res.redirect('/minor_arcana')),
+  asyncHandler(async (req, res, _) => {
+    res.render('login_form', {
+      title: 'login'
+    });
+  })
+];
 
 const logout_get = asyncHandler(async (req, res, next) => {
   req.session.destroy(err => {
