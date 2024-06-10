@@ -158,6 +158,7 @@ const delete_get = [
 
 // POST
 const register_post = [
+    Authenticate.ifAuth((req, res, _) => res.redirect('/')),
     body('username')
         .trim()
         .isLength({ min: 3 })
