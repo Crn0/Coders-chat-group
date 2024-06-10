@@ -1,0 +1,19 @@
+extends layout 
+block css 
+block content
+    h1 #{ title }
+
+    if errors
+        ul
+            each error in errors
+                li #{ error.msg }
+
+    form(method='POST')
+        fieldset.field-group
+            label
+                span.label Title (required):  
+                input(type='text' name='title' placeholder='Title' required)
+            label
+                span.label Message (required): 
+                textarea(name='message' cols='30' rows='10' placeholder='message....' required)
+            button(type='submit') Submit

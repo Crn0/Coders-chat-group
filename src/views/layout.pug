@@ -2,6 +2,28 @@ doctype html
 html
   head
     title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    block css
   body
-    block content
+    header(style='display: flex;justify-content: space-around;align-items: center;')
+      div(style='display: flex;justify-content: center;align-items: center;gap: 10px;')
+        p #[strong Tarot Club]
+          a(href='/')
+        a(href='https://github.com/Crn0/Tarot-club' target='blank', rel='noopener noreferrer')
+          img(src='' alt='github logo')
+
+      nav(style='display: flex;justify-content: center;align-items: center;gap: 10px;')
+        if isAuthenticated
+          a(href=`/user/${currentUser.id}`) Profile
+          a(href='/minor_arcana') Minor Arcana
+          if isAdmin || isMember
+            a(href='/major_arcana') Major Arcana
+          a(href='/logout') Logout
+        else
+          a(href='/minor_arcana') Minor Arcana
+          a(href='/register') Register 
+          a(href='/login') Login
+    section
+      block content
