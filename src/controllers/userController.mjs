@@ -83,7 +83,7 @@ const profile = [
             const secretMessages = await Message.find({
                 author: id,
                 secret: true,
-            }).exec();
+            }).sort({ date: -1 }).exec();
 
             posts.secretMessages = secretMessages;
         }
