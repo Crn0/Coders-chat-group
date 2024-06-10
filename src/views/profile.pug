@@ -2,40 +2,47 @@ extends layout
 block css 
 block content 
     h1 #{ title }
-    
+
     if currentUser.username === (user ? user.username : '') 
         p #[strong Welcome:] #{ currentUser.username }
         p Rank: #{ rank() }
         p Post(s): #{ count() }
         a(href=user.delete) Delete Account
         div
-            if posts
+            if posts.messages.length || posts.secretMessages.length
                 div
-                    if posts.messages
-                        each message in posts.messages
-                            div
-                                p(style='font-size: 1em; font-weight: bold;') #{ message.title }
-                                p from: #{ user.username }
-                                p date: #{ message.date }
-                            div
-                                p #{ message.message }
-                                if isAdmin 
-                                    form(method='POST')
-                                        input(type='hidden' name='message_id' value=message._id)
-                                        button(type='submit') Delete
+                    if posts.messages.length
+                        h2 Minor Arcana:
+                        div
+                            each message in posts.messages
+                                div
+                                    div
+                                        p(style='font-size: 1em; font-weight: bold;') #{ message.title }
+                                        div
+                                            p from: #{ user.username }
+                                            p date: #{ message.dateFormatted }
+                                    div
+                                        p #{ message.message }
+                                        if isAdmin 
+                                            form(action='/message/delete' method='POST')
+                                                input(type='hidden' name='message_id' value=message._id)
+                                                button(type='submit') Delete
                 div
-                    if posts.secretMessages
-                        each messages in posts.secretMessages
-                            div
-                                p(style='font-size: 1em; font-weight: bold;') #{ message.title }
-                                p from: #{ user.username }
-                                p date: #{ message.date }
-                            div
-                                p #{ message.message }
-                                if isAdmin 
-                                    form(method='POST')
-                                        input(type='hidden' name='message_id' value=message._id)
-                                        button(type='submit') Delete
+                    if posts.secretMessages.length
+                        h2 Major Arcana:
+                        div
+                            each message in posts.secretMessages
+                                div
+                                    p(style='font-size: 1em; font-weight: bold;') #{ message.title }
+                                    div
+                                        p from: #{ user.username }
+                                        p date: #{ message.dateFormatted }
+                                div
+                                    p #{ message.message }
+                                    if isAdmin 
+                                        form(action='/message/delete' method='POST')
+                                            input(type='hidden' name='message_id' value=message._id)
+                                            button(type='submit') Delete
 
 
             else 
@@ -44,35 +51,49 @@ block content
         if error
             h1 #{ error.status } 
             p #{ error.message }
-        if user 
+        if user
             div
+                p #[strong welcome to:] #{ `${user.username}'s` } profile
+                if isAdmin
+                    p Rank: #{ rank() }
+                    p Post(s): #{ count() }
+                    a(href=user.delete) Delete Account 
+
+                p 
                 if posts
-                    div
+                    div 
                         if posts.messages
-                            each message in posts.messages
-                                div
-                                    p(style='font-size: 1em; font-weight: bold;') #{ message.title }
-                                    p from: #{ user.username }
-                                    p date: #{ message.date }
-                                div
-                                    p #{ message.message }
-                                    if isAdmin 
-                                        form(method='POST')
-                                            input(type='hidden' name='message_id' value=message._id)
-                                            button(type='submit') Delete
+                            p #[strong Minor Arcana:]
+                            div
+                                each message in posts.messages
+                                    div
+                                        p(style='font-size: 1em; font-weight: bold;') #{ message.title }
+                                        div
+                                            p from: #{ user.username }
+                                            p date: #{ message.dateFormatted }
+                                    div
+                                        p #{ message.message }
+                                        if isAdmin 
+                                            form(action='/message/delete' method='POST')
+                                                input(type='hidden' name='message_id' value=message._id)
+                                                button(type='submit') Delete
                     div
-                        if posts.secretMessages
-                            each messages in posts.secretMessages
+                        if isAdmin || isMember
+                            if posts.secretMessages
+                                p #[strong Major Arcana:]
                                 div
-                                    p(style='font-size: 1em; font-weight: bold;') #{ message.title }
-                                    p from: #{ user.username }
-                                    p date: #{ message.date }
-                                div
-                                    p #{ message.message }
-                                    if isAdmin 
-                                        form(method='POST')
-                                            input(type='hidden' name='message_id' value=message._id)
-                                            button(type='submit') Delete
+                                    each message in posts.secretMessages
+                                        div
+                                            p(style='font-size: 1em; font-weight: bold;') #{ message.title }
+                                            div
+                                                p from: #{ user.username }
+                                                p date: #{ message.dateFormatted }
+                                        div
+                                            p #{ message.message }
+                                            if isAdmin 
+                                                form(action='/message/delete' method='POST')
+                                                    input(type='hidden' name='message_id' value=message._id)
+                                                    button(type='submit') Delete
 
 
                 else 

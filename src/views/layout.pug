@@ -15,13 +15,14 @@ html
           img(src='' alt='github logo')
 
       nav(style='display: flex;justify-content: center;align-items: center;gap: 10px;')
-        a(href='/minor_arcana') Minor Arcana
         if isAuthenticated
           a(href=`/user/${currentUser.id}`) Profile
+          a(href='/minor_arcana') Minor Arcana
           if isAdmin || isMember
             a(href='/major_arcana') Major Arcana
           a(href='/logout') Logout
         else
+          a(href='/minor_arcana') Minor Arcana
           a(href='/register') Register 
           a(href='/login') Login
     section
