@@ -1,0 +1,18 @@
+extends layout 
+block css 
+block content 
+    h1 #{ title }
+    if user
+        if currentUser.username !== (user ? user.username : '')
+            p #[strong Are you sure you want to delete ] 
+                span(style='font-weight: bold') #{ user.username }'s account?
+            form(method='POST')
+                input(type='hidden' name='user_id' value=user._id)
+                button('submit') Delete
+        else
+            p #[strong Are you sure you want to delete your account?]
+            form(method='POST')
+                input(type='hidden' name='user_id' value=user._id)
+                button('submit') Delete
+    if error
+        p #{ error.status }: #{ error.message }
