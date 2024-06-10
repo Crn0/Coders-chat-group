@@ -35,7 +35,6 @@ app.get("/message/new", MessageController.new_get);
 
 app.get("/message/secret/new", MessageController.secret_new_get);
 
-
 // POST
 app.post("/message/new", MessageController.new_post);
 
