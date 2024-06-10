@@ -24,7 +24,7 @@ const index = [
 ];
 
 const home = asyncHandler(async (req, res, _) => {
-  const messages = await Message.find({}).populate('author').sort({ date: -1 }).exec();
+  const messages = await Message.find({ secret: false }).populate('author', 'username').sort({ date: -1 }).exec();
 
   res.render('home', {
     messages,
@@ -37,7 +37,12 @@ const secret_page = [
   Authenticate.isMemberOrAdmin,
   
   asyncHandler(async (req, res, _) => {
-    res.send("<a href='/logout'>Logout<a/>");
+    const messages = await Message.find({ secret: true }).populate('author', 'username').sort({ date: - 1 }).exec();
+    
+    res.render('secret_page', {
+      messages,
+      title: 'Major Arcana'
+    });
   })
 ];
 
@@ -69,6 +74,7 @@ const profile = [
     }
 
     if(user.admin || user.member) {
+      // SORT BY DATE
       const secretMessages = await Message.find({ author: id, secret: true }).exec();
       
       posts.secretMessages = secretMessages;
@@ -118,9 +124,28 @@ const logout_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-const delete_get = asyncHandler(async (req, res, _) => {
-  res.send("Delete page: GET NOT IMPLEMENTED");
-});
+const delete_get = [
+  Authenticate.isAuthProtectedRoute(true),
+  asyncHandler(async (req, res, _) => {
+    const { id } = req.params;
+    const user = await User.findById(id).exec();
+
+    if(user === null) {
+      const error = new Error('User not found');
+      error.status = 404;
+
+      return res.render('delete_account', {
+        error,
+        title: 'DELETE ACCOUNT'
+      });
+    }
+
+    res.render('delete_account', {
+      user,
+      title: 'DELETE ACCOUNT'
+    });
+  })
+];
 
 // POST
 const register_post = [
@@ -192,9 +217,25 @@ const login_post = passport.authenticate('local', {
   failureMessage: 'Incorrect username or password',
 });
 
-const delete_post = asyncHandler(async (req, res, _) => {
-  res.send("Delete page: POST NOT IMPLEMENTED");
-});
+const delete_post = [
+  Authenticate.isAuthProtectedRoute(true),
+  asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+  
+    await Message.deleteMany({ author: id }).exec();
+  
+    await User.findByIdAndDelete(id);
+
+    if(res.locals.isAdmin) return res.redirect('/');
+
+    req.session.destroy(err => {
+      if(err) return next(err);
+  
+      res.redirect('/');
+    });
+  
+  })
+];
 
 export {
   index,
