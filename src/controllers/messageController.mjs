@@ -25,6 +25,7 @@ const secret_new_get = [
 
 // POST
 const new_post = [
+    Authenticate.isAuthProtectedRoute(true, 'You are not login'),
     body('title').trim().escape(),
     body('message').trim().escape(),
 
@@ -45,6 +46,7 @@ const new_post = [
 ];
 
 const secret_new_post = [
+    Authenticate.isAuthProtectedRoute(true, 'You are not login'),
     body('title').trim().escape(),
     body('message').trim().escape(),
 

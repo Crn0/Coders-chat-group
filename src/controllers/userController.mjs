@@ -125,13 +125,16 @@ const login_get = [
     }),
 ];
 
-const logout_get = asyncHandler(async (req, res, next) => {
-    req.session.destroy((err) => {
-        if (err) return next(err);
-
-        res.redirect('/');
-    });
-});
+const logout_get = [
+    Authenticate.isAuthProtectedRoute(true, 'You are not login'),
+    asyncHandler(async (req, res, next) => {
+        req.session.destroy((err) => {
+            if (err) return next(err);
+    
+            res.redirect('/');
+        });
+    })
+];
 
 const delete_get = [
     Authenticate.isAuthProtectedRoute(true),
@@ -216,11 +219,14 @@ const register_post = [
     }),
 ];
 
-const login_post = passport.authenticate('local', {
-    successRedirect: '/minor_arcana',
-    failureRedirect: '/login',
-    failureMessage: 'Incorrect username or password',
-});
+const login_post = [
+    Authenticate.ifAuth((req, res, _) => res.redirect('/')),
+    passport.authenticate('local', {
+        successRedirect: '/minor_arcana',
+        failureRedirect: '/login',
+        failureMessage: 'Incorrect username or password',
+    })
+];
 
 const delete_post = [
     Authenticate.isAuthProtectedRoute(true),
