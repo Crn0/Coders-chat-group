@@ -9,7 +9,9 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import * as PassportConfig from './configs/passport.mjs';
 import SessionConfig from './configs/session.mjs';
-import mainRouter from './routes/main.mjs';
+import IndexRoute from './routes/indexRoute.mjs';
+import UserRoute from './routes/userRoute.mjs';
+import MessageRoute from './routes/messageRoute.mjs';
 
 const app = express();
 
@@ -47,7 +49,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/', mainRouter);
+app.use('/', IndexRoute);
+app.use('/user', UserRoute);
+app.use('/message', MessageRoute);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

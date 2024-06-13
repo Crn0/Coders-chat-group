@@ -62,7 +62,7 @@ block content
                 p 
                 if posts
                     div 
-                        if posts.messages
+                        if posts.messages.length
                             p #[strong Minor Arcana:]
                             div
                                 each message in posts.messages
@@ -79,7 +79,7 @@ block content
                                                 button(type='submit') Delete
                     div
                         if isAdmin || isMember
-                            if posts.secretMessages
+                            if posts.secretMessages.length
                                 p #[strong Major Arcana:]
                                 div
                                     each message in posts.secretMessages

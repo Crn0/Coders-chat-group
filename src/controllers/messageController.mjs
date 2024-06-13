@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import { body, validationResult } from 'express-validator';
+import { body } from 'express-validator';
 import Message from '../models/message.mjs';
 import * as Authenticate from '../middlewares/authMiddleware.mjs';
 
