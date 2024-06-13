@@ -4,17 +4,21 @@ html
     title= title
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    link(rel='stylesheet', href='/stylesheets/globalCSS.css')
+    link(rel='stylesheet', href='/stylesheets/layout.css')
+    link(rel='stylesheet', href='/stylesheets/reset.css')
+
     block css
   body
-    header(style='display: flex;justify-content: space-around;align-items: center;')
-      div(style='display: flex;justify-content: center;align-items: center;gap: 10px;')
-        p #[strong Tarot Club]
-          a(href='/')
+    header(class='flex wrap space-around-center gap-1-5rem pos-fix ')
+      div(class='flex space-around-center gap-1-5rem no-padding')
+        p(class='fnt-s-3-5rem')
+          a(href='/') #[strong Tarot Club]
         a(href='https://github.com/Crn0/Tarot-club' target='blank', rel='noopener noreferrer')
-          img(src='' alt='github logo')
+          <i class="devicon-github-original-wordmark fnt-s-3-5rem"></i>
 
-      nav(style='display: flex;justify-content: center;align-items: center;gap: 10px;')
+      nav(class='flex space-around-center gap-1-5rem no-padding')
         if isAuthenticated
           a(href=`/user/${currentUser.id}`) Profile
           a(href='/minor_arcana') Minor Arcana
@@ -25,5 +29,5 @@ html
           a(href='/minor_arcana') Minor Arcana
           a(href='/register') Register 
           a(href='/login') Login
-    section
+    main
       block content

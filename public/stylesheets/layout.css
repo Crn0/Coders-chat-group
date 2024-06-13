@@ -1,0 +1,44 @@
+* {
+  color: var(--font-clr);
+}
+
+.flex {
+  display: flex;
+  
+}
+.flex.wrap {
+  flex-wrap: wrap
+}
+.flex.space-around-center {
+  justify-content: space-around;
+  align-items: center;
+}
+.flex.gap-1-5rem {
+  gap: 1.5rem;
+}
+.pos-fix {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: .5em;
+  font-size: 1.5rem;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.fnt-s-3-5rem {
+  font-size: 3.5rem;
+}
+
+header {
+  background-color: var(--parent-bg);
+}
+
+/* MOBILE */
+@media (max-width: 366px) {
+  p, a, i {
+    font-size: 1rem;
+  }
+}
