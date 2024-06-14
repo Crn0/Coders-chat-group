@@ -6,11 +6,13 @@ const app = express.Router();
 // USER ROUTES
 
 // GET
+
 app.get('/:id', UserController.profile);
+
+app.get('/:id/logout', UserController.logout_get);
 
 app.get('/:id/delete', UserController.delete_get);
 
-app.get('/logout', UserController.logout_get);
 
 
 // POST

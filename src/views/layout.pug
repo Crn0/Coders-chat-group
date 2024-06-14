@@ -24,7 +24,7 @@ html
           a(href='/minor_arcana') Minor Arcana
           if isAdmin || isMember
             a(href='/major_arcana') Major Arcana
-          a(href='/logout') Logout
+          a(href=`/user/${currentUser.id}/logout`) Logout
         else
           a(href='/minor_arcana') Minor Arcana
           a(href='/register') Register 
