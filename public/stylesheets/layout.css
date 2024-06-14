@@ -32,8 +32,8 @@
   font-size: 3.5rem;
 }
 
-.margin-t-2-rem {
-  margin-top: 2rem;
+.margin-t-10-per {
+  margin-top: 10%;
 }
 
 header {
@@ -50,5 +50,11 @@ header {
 @media (max-width: 497px) {
   .fnt-s {
     font-size: .9rem;
+  }
+}
+
+@media (min-width: 865px) {
+  .no-margin {
+    margin: 0;
   }
 }
