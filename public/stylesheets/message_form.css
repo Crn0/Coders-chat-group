@@ -1,0 +1,37 @@
+.grid {
+    display: grid;
+}
+.grid.all-center {
+    place-content: center;
+    place-items: center;
+}
+.grid.gap-2-rem {
+    gap: 2rem;
+}
+
+.parent {
+    padding: 1.5em;
+    font-size: 1.5rem;
+    background-color: var(--parent-bg);
+}
+
+.min {
+    width: min(500px, 100%);
+}
+
+.btn {
+    background-color: var(--btn-bg-clr);
+    border: 2px solid var(--btn-brd-clr);
+    color: var(--btn-clr);
+    padding: .3rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--btn-bg-cl-hvr);
+    color: var(--btn-clr-hvr);
+}
