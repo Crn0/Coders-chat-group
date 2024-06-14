@@ -3,7 +3,7 @@ block css
     link(rel='stylesheet', href='/stylesheets/home.css')
 block content 
     section(class='grid template-row all-center')
-        div(class='grid all-center parent half-w m-top-8-rem fnt-1-1rem')
+        div(class='grid all-center parent min fnt-1-1rem')
             h1 #{ title }
 
             if isAuthenticated
@@ -29,7 +29,8 @@ block content
                                 form(action='/message/delete' method='POST')
                                     input(type='hidden' name='message_id' value=message._id)
 
-                                    button(type='submit') Delete
-
+                                    button(type='submit' class='btn') Delete
+            else
+                p There are no posts
 
 

@@ -1,4 +1,10 @@
 :root {
     --parent-bg: #8d38a8;
     --font-clr: #E0E0E0;
+    --btn-brd-clr: #e7e7e7;
+    --btn-bg-clr: #8d38a8;
+    --btn-bg-cl-hvr: #e7e7e7;
+    --btn-clr: silver;
+    --btn-clr-hvr: #8d38a8;
+    
 }
