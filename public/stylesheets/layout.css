@@ -32,6 +32,10 @@
   font-size: 3.5rem;
 }
 
+.margin-t-2-rem {
+  margin-top: 2rem;
+}
+
 header {
   background-color: var(--parent-bg);
 }
@@ -40,5 +44,11 @@ header {
 @media (max-width: 366px) {
   p, a, i {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 497px) {
+  .fnt-s {
+    font-size: .9rem;
   }
 }

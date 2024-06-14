@@ -9,7 +9,7 @@ block content
             if isAuthenticated
                 p #[strong Welcome]: #{ currentUser.username }
                 a(href='/message/new') Post Message 
-        div(class='parent-bg p-2em fnt-1-5rem grid gap-2-rem ')
+        div(class='parent-bg p-2em fnt-1-5rem grid gap-s-rem ')
             if messages 
                 each message in messages 
                     div(class='grid gap-2-rem parent')

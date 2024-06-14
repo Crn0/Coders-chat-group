@@ -11,7 +11,7 @@ html
 
     block css
   body
-    header(class='flex wrap space-around-center gap-1-5rem pos-fix ')
+    header(class='flex wrap space-around-center gap-1-5rem pos-fix fnt-s')
       div(class='flex space-around-center gap-1-5rem no-padding')
         p(class='fnt-s-3-5rem')
           a(href='/') #[strong Tarot Club]
@@ -29,5 +29,5 @@ html
           a(href='/minor_arcana') Minor Arcana
           a(href='/register') Register 
           a(href='/login') Login
-    main
+    main(class='margin-t-2-rem')
       block content
