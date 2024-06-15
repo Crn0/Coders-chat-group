@@ -8,12 +8,12 @@ block content
                 p #[strong Welcome:] #{ currentUser.username }
                 p Rank: #{ rank() }
                 p Post(s): #{ count() }
-                if isAdmin
+                if isAdmin || currentUser.username === user.username
                     a(href=user.delete class='btn') Delete Account
         div(class='grid gap-s-rem all-center') 
             if posts.messages.length || posts.secretMessages.length
                 div(class='min fnt-1-1rem')
-                    if posts.messages.length
+                    if posts.messages
                         h2(class='title-clr' style='text-align: center;') Minor Arcana:
                         div(class='p-2em fnt-1-5rem grid gap-s-rem')
                             each message in posts.messages
@@ -31,7 +31,7 @@ block content
                                                 button(type='submit' class='btn') Delete
                 div
                     if isAdmin || isMember
-                        if posts.secretMessages.length
+                        if posts.secretMessages
                             h2(class='title-clr' style='text-align: center;') Major Arcana:
                             div(class='p-2em fnt-1-5rem grid gap-s-rem')
                                 each message in posts.secretMessages
