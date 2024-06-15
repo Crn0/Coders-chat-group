@@ -1,19 +1,21 @@
 extends layout 
 block css 
+    link(rel='stylesheet', href='/stylesheets/message_form.css')
 block content
-    h1 #{ title }
+    section(class='grid all-center parent')
+        h1 #{ title }
 
-    if errors
-        ul
-            each error in errors
-                li #{ error.msg }
+        if errors
+            ul
+                each error in errors
+                    li #{ error.msg }
 
-    form(method='POST')
-        fieldset.field-group
-            label
-                span.label Title (required):  
-                input(type='text' name='title' placeholder='Title' required)
-            label
-                span.label Message (required): 
-                textarea(name='message' cols='30' rows='10' placeholder='message....' required)
-            button(type='submit') Submit
+        form(class='grid all-center' method='POST')
+            fieldset(class='grid all-center gap-2-rem min')
+                label(class='grid all-center')
+                    span.label Title (required):  
+                    input(type='text' name='title' placeholder='Title' required)
+                label(class='grid all-center')
+                    span.label Message (required): 
+                    textarea(name='message' cols='30' rows='10' placeholder='message....' required)
+                button(type='submit' class='btn') Submit

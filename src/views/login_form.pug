@@ -1,18 +1,20 @@
 extends layout 
 block css 
+    link(rel='stylesheet', href='/stylesheets/login_form.css')
 block content
-    h1 #{ title }
+    section(class='grid all-center parent h-100svh')
+        h1 #{ title }
 
-    if loginErrors
-        each error in loginErrors
-            p #{ error }
+        if loginErrors
+            each error in loginErrors
+                p #{ error }
 
-    form(method='POST')
-        fieldset.field-group
-            label
-                span.label Username (required):  
-                input(type='text' name='username' placeholder='Klein' required value=( uname ? uname : '' ))
-            label
-                span.label Password (required): 
-                input(type='password' name='password' required)
-            button(type='submit') Login
+        form(class='grid all-center' method='POST')
+            fieldset(class='grid all-center gap-2-rem min')
+                label(class='grid all-center')
+                    span.label Username (required):  
+                    input(type='text' name='username' placeholder='Klein' required value=( uname ? uname : '' ))
+                label(class='grid all-center')
+                    span.label Password (required): 
+                    input(type='password' name='password' required)
+                button(type='submit' class='btn') Login

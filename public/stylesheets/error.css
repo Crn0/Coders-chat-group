@@ -1,0 +1,18 @@
+.grid {
+    display: grid;
+}
+.grid.all-center {
+    place-content: center;
+    place-items: center;
+}
+.grid.gap-2-rem {
+    gap: 2rem;
+}
+
+.parent-bg {
+    background-color: var(--parent-bg);
+}
+
+.h-100-svh {
+    height: 100svh;
+}
