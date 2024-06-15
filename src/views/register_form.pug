@@ -3,7 +3,7 @@ block css
     link(rel='stylesheet', href='/stylesheets/register_form.css')
 
 block content
-    section(class='grid all-center parent')
+    section(class='grid all-center parent h-svh-100')
         h1 #{ title }
 
         if errors
@@ -28,4 +28,4 @@ block content
                 label(class='grid all-center')
                     span.label Confirm Password(required):
                     input(type='password' name='password_confirm' required)
-                button(type='submit') Submit 
+                button(type='submit' class='btn') Submit 

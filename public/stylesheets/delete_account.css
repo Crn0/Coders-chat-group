@@ -19,9 +19,6 @@
     height: 100svh;
 }
 
-.min {
-    width: min(500px, 100%);
-}
 
 .btn {
     background-color: var(--btn-bg-clr);

@@ -84,3 +84,11 @@
     background-color: var(--btn-bg-cl-hvr);
     color: var(--btn-clr-hvr);
 }
+
+.sec-bg-clr {
+    background-color: var(--section-bg-clr);
+}
+
+.title-clr {
+    color: var(--title-clr);
+  }

@@ -1,6 +1,11 @@
 extends layout
-
+block css 
+    link(rel='stylesheet', href='/stylesheets/index.css')
 block content
-  h1= title
-  p Welcome to #{title}
-  a(href='/register') Register now!
+  section(class='grid all-center parent h-100-svh')
+    div(class='grid all-center parent')
+      h1= title
+      p Welcome to #{title}
+    div 
+      a(href='/register')
+        img(src="/images/Fool_Symbol2.webp" alt="fool logo, click to register" class='center-img m-w-half')

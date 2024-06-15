@@ -2,7 +2,7 @@ extends layout
 block css 
     link(rel='stylesheet', href='/stylesheets/login_form.css')
 block content
-    section(class='grid all-center parent h-100dvh')
+    section(class='grid all-center parent h-100svh')
         h1 #{ title }
 
         if loginErrors
@@ -17,4 +17,4 @@ block content
                 label(class='grid all-center')
                     span.label Password (required): 
                     input(type='password' name='password' required)
-                button(type='submit') Login
+                button(type='submit' class='btn') Login
