@@ -12,7 +12,6 @@
     grid-template-rows: repeat(auto-fill, minmax(450px, 1fr));
 }
 .grid.all-center {
-    place-content: center;
     place-items: center;
 }
 
@@ -22,6 +21,10 @@
 
 .grid.gap-s-rem  {
     gap: .5rem
+}
+
+.h-100-svh {
+    height: 100svh;
 }
 
 .min {
@@ -83,10 +86,6 @@
 .btn:hover {
     background-color: var(--btn-bg-cl-hvr);
     color: var(--btn-clr-hvr);
-}
-
-.sec-bg-clr {
-    background-color: var(--section-bg-clr);
 }
 
 .title-clr {

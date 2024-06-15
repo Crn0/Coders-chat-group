@@ -11,9 +11,12 @@ import { memberRank, postCount } from '../helpers/profileHelpers.mjs';
 const profile = [
     Authenticate.isAuthProtectedRoute(true),
     asyncHandler(async (req, res, _) => {
-        const { id } = req.params;
-        const posts = {};
-
+        const id = req.params.id || res.locals.currentUser._id;
+        const posts = {
+            messages: [],
+            secretMessages: []
+        };
+        
         if (!isValidObjectId(id)) {
             const error = new Error('ID is not a valid mongodb objectID');
             error.status = 400;
