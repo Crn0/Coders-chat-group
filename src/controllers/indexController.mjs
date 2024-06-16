@@ -16,7 +16,7 @@ const index = [
         if (req.isAuthenticated()) return res.redirect('/minor_arcana');
 
         res.render('index', {
-            title: 'Tarot Club',
+            title: 'Welcome to the Tarot Club',
         });
     },
 ];
