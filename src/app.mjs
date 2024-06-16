@@ -2,6 +2,8 @@ import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
 import passport from 'passport';
+import compression from 'compression';
+import helmet from 'helmet';
 import __dirname from '../dirname.mjs';
 import createError from 'http-errors';
 import { join } from 'path';
@@ -38,6 +40,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            'script-src': ['self', 'cdn.jsdelivr.net'],
+        }
+    }
+}));
+app.use(compression()); // Compress all routes
 app.use(express.static(join(__dirname, 'public')));
 app.use((req, res, next) => {
     res.locals.currentUser = req?.user;
