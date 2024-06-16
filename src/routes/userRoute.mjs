@@ -13,8 +13,6 @@ app.get('/:id/logout', UserController.logout_get);
 
 app.get('/:id/delete', UserController.delete_get);
 
-
-
 // POST
 app.post('/:id/delete', UserController.delete_post);
 

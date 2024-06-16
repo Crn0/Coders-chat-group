@@ -14,9 +14,9 @@ const profile = [
         const id = req.params.id || res.locals.currentUser._id;
         const posts = {
             messages: [],
-            secretMessages: []
+            secretMessages: [],
         };
-        
+
         if (!isValidObjectId(id)) {
             const error = new Error('ID is not a valid mongodb objectID');
             error.status = 400;
@@ -42,7 +42,9 @@ const profile = [
             const secretMessages = await Message.find({
                 author: id,
                 secret: true,
-            }).sort({ date: -1 }).exec();
+            })
+                .sort({ date: -1 })
+                .exec();
 
             posts.secretMessages = secretMessages;
         }
@@ -71,10 +73,10 @@ const logout_get = [
     asyncHandler(async (req, res, next) => {
         req.session.destroy((err) => {
             if (err) return next(err);
-    
+
             res.redirect('/');
         });
-    })
+    }),
 ];
 
 const delete_get = [
@@ -121,9 +123,4 @@ const delete_post = [
     }),
 ];
 
-export {
-    profile,
-    delete_get,
-    delete_post,
-    logout_get,
-};
+export { profile, delete_get, delete_post, logout_get };

@@ -14,7 +14,6 @@ app.get('/register', IndexController.register_get);
 
 app.get('/login', IndexController.login_get);
 
-
 // POST
 app.post('/register', IndexController.register_post);
 

@@ -71,13 +71,13 @@ const delete_post = [
     Authenticate.isAuthProtectedRoute(true, 'You are not login'),
     asyncHandler(async (req, res, _) => {
         const id = req.body.message_id;
-    
+
         const prevLink = req.get('Referrer');
-    
+
         await Message.findByIdAndDelete(id).exec();
-    
+
         res.redirect(prevLink);
-    })
+    }),
 ];
 
 export { new_get, secret_new_get, new_post, secret_new_post, delete_post };

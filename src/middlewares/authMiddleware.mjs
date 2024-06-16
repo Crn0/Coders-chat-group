@@ -1,15 +1,19 @@
-const isAuthProtectedRoute = (isProtectedRoute, customErrorMessage) => (req, res, next) => {
-    if (isProtectedRoute) {
-        if (req.isAuthenticated()) return next();
+const isAuthProtectedRoute =
+    (isProtectedRoute, customErrorMessage) => (req, res, next) => {
+        if (isProtectedRoute) {
+            if (req.isAuthenticated()) return next();
 
-        const error = new Error(customErrorMessage || 'You are not authorized to view this resource');
-        error.status = 401;
+            const error = new Error(
+                customErrorMessage ||
+                    'You are not authorized to view this resource'
+            );
+            error.status = 401;
 
-        return next(error);
-    }
+            return next(error);
+        }
 
-    return next();
-};
+        return next();
+    };
 
 const ifAuth =
     (cb) =>

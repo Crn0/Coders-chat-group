@@ -98,27 +98,25 @@ const register_post = [
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const user = new User({
-                username: req.body.username,
-                password: hashedPassword,
+            username: req.body.username,
+            password: hashedPassword,
         });
 
-            if (req.body.admin_password === process.env.ADMIN_PASSWORD) {
-                user.admin = true;
-            }
-            if (req.body.member_password === process.env.MEMBER_PASSWORD) {
-                user.member = true;
-            }
+        if (req.body.admin_password === process.env.ADMIN_PASSWORD) {
+            user.admin = true;
+        }
+        if (req.body.member_password === process.env.MEMBER_PASSWORD) {
+            user.member = true;
+        }
 
-            await user.save();
+        await user.save();
 
-            req.login(user, (err) => {
-                if (err) return next(err);
-                if (user.member || user.admin)
-                    return res.redirect('/major_arcana');
+        req.login(user, (err) => {
+            if (err) return next(err);
+            if (user.member || user.admin) return res.redirect('/major_arcana');
 
-                res.redirect('/minor_arcana');
-            });
-        
+            res.redirect('/minor_arcana');
+        });
     }),
 ];
 
@@ -128,7 +126,7 @@ const login_post = [
         successRedirect: '/minor_arcana',
         failureRedirect: '/login',
         failureMessage: 'Incorrect username or password',
-    })
+    }),
 ];
 
 export {
