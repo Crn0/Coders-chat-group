@@ -4,8 +4,13 @@ block css
 block content
     section(class='grid template-row all-center')
         if user
-            div(class='grid all-center parent min fnt-1-1rem m-t-1per gap-s-rem ') 
-                p #[strong Welcome:] #{ user.username }
+            div(class='grid all-center parent min fnt-1-1rem m-t-1per gap-s-rem ')
+                if currentUser.username === user.username 
+                    p #[strong Welcome:] #{ user.username }
+                else
+                    p Welcome to the
+                        | 
+                        span #{ user.username }'s profile
                 p Rank: #{ rank() }
                 if isAdmin || currentUser.username === user.username
                     p Post(s): #{ count() }
