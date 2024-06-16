@@ -96,35 +96,29 @@ const register_post = [
             });
         }
 
-        bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-            try {
-                const user = new User({
-                    username: req.body.username,
-                    password: hashedPassword,
-                });
-
-                if (err) throw new Error(err);
-
-                if (req.body.admin_password === process.env.ADMIN_PASSWORD) {
-                    user.admin = true;
-                }
-                if (req.body.member_password === process.env.MEMBER_PASSWORD) {
-                    user.member = true;
-                }
-
-                await user.save();
-
-                req.login(user, (err) => {
-                    if (err) return next(err);
-                    if (user.member || user.admin)
-                        return res.redirect('/major_arcana');
-
-                    res.redirect('/minor_arcana');
-                });
-            } catch (error) {
-                return next(error);
-            }
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const user = new User({
+                username: req.body.username,
+                password: hashedPassword,
         });
+
+            if (req.body.admin_password === process.env.ADMIN_PASSWORD) {
+                user.admin = true;
+            }
+            if (req.body.member_password === process.env.MEMBER_PASSWORD) {
+                user.member = true;
+            }
+
+            await user.save();
+
+            req.login(user, (err) => {
+                if (err) return next(err);
+                if (user.member || user.admin)
+                    return res.redirect('/major_arcana');
+
+                res.redirect('/minor_arcana');
+            });
+        
     }),
 ];
 
