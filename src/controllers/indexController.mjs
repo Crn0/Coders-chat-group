@@ -97,19 +97,25 @@ const register_post = [
         }
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const user = new User({
+
+        const user = await User.create({
             username: req.body.username,
             password: hashedPassword,
+            admin: (() => {
+                if (req.body.admin_password === process.env.ADMIN_PASSWORD) {
+                    return true;
+                }
+
+                return false;
+            })(),
+            member: (() => {
+                if (req.body.member_password === process.env.MEMBER_PASSWORD) {
+                    return true;
+                }
+
+                return false;
+            })(),
         });
-
-        if (req.body.admin_password === process.env.ADMIN_PASSWORD) {
-            user.admin = true;
-        }
-        if (req.body.member_password === process.env.MEMBER_PASSWORD) {
-            user.member = true;
-        }
-
-        await user.save();
 
         req.login(user, (err) => {
             if (err) return next(err);
